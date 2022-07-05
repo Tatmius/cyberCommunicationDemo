@@ -1,0 +1,19 @@
+{
+  "name": "presentaion",
+  "version": "1.0.0",
+  "description": "demo site for presentation of cyber communication class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tatmius/cyberCommunicationDemo.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Tatmius/cyberCommunicationDemo/issues"
+  },
+  "homepage": "https://github.com/Tatmius/cyberCommunicationDemo#readme"
+}
