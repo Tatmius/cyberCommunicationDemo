@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Tatmius/cyberCommunicationDemo/issues"
   },
-  "homepage": "https://github.com/Tatmius/cyberCommunicationDemo#readme"
+  "homepage": "https://github.com/Tatmius/cyberCommunicationDemo#readme",
+  "dependencies": {
+    "tailwindcss": "^3.1.4"
+  }
 }
