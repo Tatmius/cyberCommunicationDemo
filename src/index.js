@@ -1,4 +1,9 @@
 function startLoad() {
+  const worker = new Worker('worker.js');
+  worker.addEventListener('message', (e) => {
+    console.log('Workerから受け取ったデータは: ', e.data);
+  }, false);
+
   let startButton = document.getElementById('startLoadButton');
   startButton.remove();
   let youtubeFrameDiv = document.getElementById('youtubeFrame');
@@ -14,4 +19,6 @@ function startLoad() {
   nicoVideoFrameDiv.insertAdjacentHTML('afterbegin', nicoVideoFrame);
   rumbleFrameDiv.insertAdjacentHTML('afterbegin', rumbleFrame);
   localVideoDiv.insertAdjacentHTML('afterbegin',localVideo )
+  worker.postMessage('Hello, world');
 }
+
