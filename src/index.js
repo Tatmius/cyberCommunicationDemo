@@ -1,4 +1,7 @@
-function startLoad() {
+const worker = new Worker('demo_workers.js');
+let iframeLoadCount = 0;
+
+function startLoad() {  
   let startButton = document.getElementById('startLoadButton');
   startButton.remove();
   let youtubeFrameDiv = document.getElementById('youtubeFrame');
@@ -14,27 +17,66 @@ function startLoad() {
   nicoVideoFrameDiv.insertAdjacentHTML('afterbegin', nicoVideoFrame);
   rumbleFrameDiv.insertAdjacentHTML('afterbegin', rumbleFrame);
   localVideoDiv.insertAdjacentHTML('afterbegin',localVideo )
+
+  worker.addEventListener('message', (e) => {
+    if(e.data==='iframeAllLoaded'){
+      inserttDurations();
+    }
+  }, false);
   
 }
 
-function iframeLoaded() {
+function iframeLoaded(){
+  worker.postMessage('iframeLoad');
+}
+
+function inserttDurations() {
   let entries = performance.getEntries();
   let entriesLen = entries.length;
+  let ytDuration = 0;
+  let ncDuration = 0;
+  let rbDuration = 0;
+  let localVideoDuration = 0;
   for(let i=0;i<entriesLen;i++){
     let name = entries[i].name;
     if(name.match(/youtube/)){
-      insertDuration(entries[i],"ytResult")
+      ytDuration = insertDuration(entries[i],"ytResult");
     }else if(name.match(/nicovideo/)){
-      insertDuration(entries[i], "ncResult")
+      ncDuration = insertDuration(entries[i], "ncResult");
     }else if(name.match(/rumble/)){
-      insertDuration(entries[i], "rbResult")
+      rbDuration = insertDuration(entries[i], "rbResult");
+    }else if(name.match(/localVideo/)){
+      console.log(entries[i].duration);
+      localVideoDuration += entries[i].duration;
     }
   }
+  insertLocalDuration(localVideoDuration);
   console.log(performance.getEntries());
+  postDurationData(ytDuration, ncDuration, rbDuration,localVideoDuration);
 } 
 
 function insertDuration(performanceResourceTiming, name){
   const resultDiv = document.getElementById(name);
-  const element = '<p>duration:'+String(performanceResourceTiming.duration)+'</p>'
+  const duraion = performanceResourceTiming.duration
+  const element = '<p>読み込み時間:'+String(duraion)+'[ms]</p>'
   resultDiv.innerHTML = element;
+  return duraion
+}
+
+function insertLocalDuration(duration){
+  const resultDiv = document.getElementById('lcResult');
+  const element1 = '<p>読み込み時間:'+String(duration)+'</p>'
+  resultDiv.innerHTML = element1;
+}
+
+function postDurationData(ytDuration, ncDuration, rbDuration, lcDuration){
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://219.121.57.250:65000/duration/post", true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    "youtube": ytDuration,
+    "niconico": ncDuration,
+    "rumble": rbDuration,
+    "local":lcDuration,
+  }));
 }
