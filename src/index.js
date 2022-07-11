@@ -14,15 +14,20 @@ function startLoad() {
   const nicoVideoFrame = '<iframe width="350" onload="iframeLoaded()" src="https://embed.nicovideo.jp/watch/sm40683783"></iframe>';
   //const twitchFrame = '<iframe src="https://clips.twitch.tv/embed?clip=TenaciousFunnyWaspKeepo-wYjv4YsAOY0_AThZ&parent=219.121.57.250" frameborder="0" allowfullscreen="true" scrolling="no" width="350"></iframe>'
   const rumbleFrame = '<iframe class="rumble" onload="iframeLoaded()" width="350" src="https://rumble.com/embed/v18p5pn/?pub=4" frameborder="0" allowfullscreen></iframe>';
-  const localVideo = '<video controls width="350"><source src="localVideo.webm" type="video/webm"></video>'
+  const localVideo = '<video controls width="350"><source src="localVideo.mp4" type="video/mp4" playsinline></video>'
   youtubeFrameDiv.insertAdjacentHTML('afterbegin', youtubeFrame);
   nicoVideoFrameDiv.insertAdjacentHTML('afterbegin', nicoVideoFrame);
   //twitchFrameDiv.insertAdjacentHTML('afterbegin', twitchFrame);
   rumbleFrameDiv.insertAdjacentHTML('afterbegin', rumbleFrame);
   localVideoDiv.insertAdjacentHTML('afterbegin',localVideo )
 
+  const video = document.querySelector('video');
+  video.addEventListener('canplaythrough', (e) => {
+    worker.postMessage('videoLoaded');
+  });
+
   worker.addEventListener('message', (e) => {
-    if(e.data==='iframeAllLoaded'){
+    if(e.data==='resourceAllLoaded'){
       inserttDurations();
     }
   }, false);
