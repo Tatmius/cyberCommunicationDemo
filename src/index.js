@@ -2,7 +2,7 @@ const worker = new Worker('demo_workers.js');
 let iframeLoadCount = 0;
 
 function startLoad() {  
-  let startButton = document.getElementById('startLoadButton');
+  let startButton = document.getElementById('startLoadButtonDiv');
   startButton.remove();
   let youtubeFrameDiv = document.getElementById('youtubeFrame');
   let nicoVideoFrameDiv = document.getElementById('nicoVideoFrame');
