@@ -21,6 +21,18 @@ function startLoad() {
   rumbleFrameDiv.insertAdjacentHTML('afterbegin', rumbleFrame);
   localVideoDiv.insertAdjacentHTML('afterbegin',localVideo )
 
+  let youtubeResultDiv = document.getElementById('ytResult');
+  let nicoVideoResultDiv = document.getElementById('ncResult');
+  let twitchResultDiv = document.getElementById('twResult');
+  let rumbleResultDiv = document.getElementById('rbResult');
+  let localResultDiv = document.getElementById('lcResult');
+
+  youtubeResultDiv.insertAdjacentHTML('afterbegin', '<p>YouTube</p>');
+  nicoVideoResultDiv.insertAdjacentHTML('afterbegin', '<p>ニコニコ動画</p>');
+  twitchResultDiv.insertAdjacentHTML('afterbegin', '<p>twtich</p>');
+  rumbleResultDiv.insertAdjacentHTML('afterbegin', '<p>Rumble</p>');
+  localResultDiv.insertAdjacentHTML('afterbegin','<p>ローカルデータ(このサーバー内)</p>' )
+
   const video = document.querySelector('video');
   video.addEventListener('canplaythrough', (e) => {
     worker.postMessage('videoLoaded');
