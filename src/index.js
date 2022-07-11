@@ -51,6 +51,8 @@ function inserttDurations() {
       ytDuration = insertDuration(entries[i],"ytResult");
     }else if(name.match(/nicovideo/)){
       ncDuration = insertDuration(entries[i], "ncResult");
+    }else if(name.match(/twitch/)){
+      twDuration = insertDuration(entries[i], "twResult");
     }else if(name.match(/rumble/)){
       rbDuration = insertDuration(entries[i], "rbResult");
     }else if(name.match(/localVideo/)){
@@ -67,14 +69,14 @@ function insertDuration(performanceResourceTiming, name){
   const resultDiv = document.getElementById(name);
   const duraion = performanceResourceTiming.duration
   const element = '<p>読み込み時間:'+String(duraion)+'[ms]</p>'
-  resultDiv.innerHTML = element;
+  resultDiv.insertAdjacentHTML('beforeend' ,element);
   return duraion
 }
 
 function insertLocalDuration(duration){
   const resultDiv = document.getElementById('lcResult');
   const element1 = '<p>読み込み時間:'+String(duration)+'[ms]</p>'
-  resultDiv.innerHTML = element1;
+  resultDiv.insertAdjacentHTML('beforeend',element1);
 }
 
 function postDurationData(ytDuration, ncDuration, rbDuration, lcDuration){
