@@ -55,6 +55,7 @@ function inserttDurations() {
   let entriesLen = entries.length;
   let ytDuration = 0;
   let ncDuration = 0;
+  let twDuration = 0;
   let rbDuration = 0;
   let localVideoDuration = 0;
   for(let i=0;i<entriesLen;i++){
@@ -74,7 +75,7 @@ function inserttDurations() {
   }
   insertLocalDuration(localVideoDuration);
   console.log(performance.getEntries());
-  postDurationData(ytDuration, ncDuration, rbDuration,localVideoDuration);
+  postDurationData(ytDuration, ncDuration, twDuration, rbDuration,localVideoDuration);
 } 
 
 function insertDuration(performanceResourceTiming, name){
@@ -91,13 +92,14 @@ function insertLocalDuration(duration){
   resultDiv.insertAdjacentHTML('beforeend',element1);
 }
 
-function postDurationData(ytDuration, ncDuration, rbDuration, lcDuration){
+function postDurationData(ytDuration, ncDuration, twDuration, rbDuration, lcDuration){
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "https://cybercomdemo.tatmius.tk/duration/post", true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
     "youtube": ytDuration,
     "niconico": ncDuration,
+    "twitch": twDuration,
     "rumble": rbDuration,
     "local":lcDuration,
   }));

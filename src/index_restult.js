@@ -20,12 +20,12 @@ function insertResult(result){
   const resultDiv = document.getElementById('Result');
   for(const element of typeArr){
     result = data[element];
-    resultDiv.insertAdjacentHTML('beforeend',formatData(result));
+    resultDiv.insertAdjacentHTML('beforeend',formatData(result, element));
   }
 }
 
-function formatData(data){
-  return '<p class="text-2xl text-white">'+String(data)+'[ms]</p>'
+function formatData(data, title){
+  return '<p class="text-2xl text-white">'+title+' : '+String(data)+'[ms]</p>'
 }
 
 getResult();
