@@ -78,7 +78,9 @@ function insertResult(result){
 }
 
 function formatData(data, title){
-  return '<p class="text-2xl text-white">'+title+' : '+String(data)+'[ms]</p>'
+  const element1 = '<div class="text-2xl text-white">'+title+' : ';
+  const element2 = String(data.toFixed(2))+'[ms]</div>';
+  return element1+element2
 }
 
 getResult();
