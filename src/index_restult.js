@@ -112,7 +112,7 @@ function displayGraph(data){
           labels: labels,
           datasets: [{
               label: '読み込み時間',
-              data: [data[labels[0]], data[labels[1]], data[labels[2]], data[labels[3]], data[labels[4]]],
+              data: [data[typeArr[0]], data[typeArr[1]], data[typeArr[2]], data[typeArr[3]], data[typeArr[4]]],
               backgroundColor: backgroundColor,
               borderColor: borderColor,
               borderWidth: 5,
