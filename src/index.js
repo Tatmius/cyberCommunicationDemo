@@ -1,6 +1,8 @@
 const worker = new Worker('demo_workers.js');
 let iframeLoadCount = 0;
 
+const label = {'ytResult':'Youtube', 'ncResult':'ニコニコ' , 'twResult':'Twitch', 'rbResult':'Rumble'};
+
 function startLoad() {  
   let startButton = document.getElementById('startLoadButtonDiv');
   startButton.remove();
@@ -9,7 +11,7 @@ function startLoad() {
   let twitchFrameDiv = document.getElementById('twitchFrame');
   let rumbleFrameDiv = document.getElementById('rumbleFrame');
   let localVideoDiv = document.getElementById('localVideo');
-
+  
   const youtubeFrame = '<iframe width="350" onload="iframeLoaded()" src="https://www.youtube.com/embed/gEYNgdvcdLs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
   const nicoVideoFrame = '<iframe width="350" onload="iframeLoaded()" src="https://embed.nicovideo.jp/watch/sm40683783"></iframe>';
   const twitchFrame = '<iframe src="https://clips.twitch.tv/embed?clip=TenaciousFunnyWaspKeepo-wYjv4YsAOY0_AThZ&parent=cybercomdemo.tatmius.tk" frameborder="0" allowfullscreen="true" scrolling="no" width="350"></iframe>'
@@ -81,15 +83,17 @@ function inserttDurations() {
 function insertDuration(performanceResourceTiming, name){
   const resultDiv = document.getElementById(name);
   const duraion = performanceResourceTiming.duration
-  const element = '<p>読み込み時間:'+String(duraion)+'[ms]</p>'
-  resultDiv.insertAdjacentHTML('beforeend' ,element);
+  const element1 = '<p>'+label[name]+'</p>';
+  const element = '<p>読み込み時間:'+String(duraion)+'[ms]</p>';
+  resultDiv.innerHTML = (element1 + element);
   return duraion
 }
 
 function insertLocalDuration(duration){
   const resultDiv = document.getElementById('lcResult');
-  const element1 = '<p>読み込み時間:'+String(duration)+'[ms]</p>'
-  resultDiv.insertAdjacentHTML('beforeend',element1);
+  const element1 = '<p>ローカル</p>'
+  const element2 = '<p>読み込み時間:'+String(duration)+'[ms]</p>'
+  resultDiv.innerHTML = element1+element2;
 }
 
 function postDurationData(ytDuration, ncDuration, twDuration, rbDuration, lcDuration){
